@@ -1,118 +1,107 @@
-import Image from 'next/image'
 import { Inter } from 'next/font/google'
+import Banner from '@/components/Banner'
+import ProductCard from '@/components/ProductCard'
+import Link from 'next/link'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home() {
+export default function Home({ data }) {
   return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
-    >
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/pages/index.js</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <>
+      <Banner />
+      <div className="container mx-auto p-4 my-8">
+        <h1 className='text-center text-secondary text-3xl font-bold mb-8'>Featured Products</h1>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 place-items-center">
+          {
+            data?.slice(0, 6).map(product => {
+              return (
+                <ProductCard product={product} key={product._id} />
+              )
+            })
+          }
         </div>
       </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-sky-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+      <div className="container mx-auto p-4 my-8">
+        <h1 className='text-center text-secondary text-3xl font-bold mb-8'>Categories</h1>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 place-items-center">
+          <Link href="/cpu">
+            <div className="card w-80 h-60 bg-base-100 shadow-xl image-full">
+              <figure><img src="https://img.freepik.com/free-photo/circuit-cyberspace-closeup-with-neon-lights_90220-1200.jpg?t=st=1690628660~exp=1690632260~hmac=e37b3e80fa7a3f1c22b12cd0d798b5512157c1579e86dfb60d0a4246db97503e&w=996" alt="CPU / Processor" /></figure>
+              <div className="card-body justify-center items-center text-center">
+                <h2 className="card-title text-3xl">CPU / Processor</h2>
+              </div>
+            </div>
+          </Link>
+          <Link href="/motherboard">
+            <div className="card w-80 h-60 bg-base-100 shadow-xl image-full">
+              <figure><img src="https://img.freepik.com/free-vector/realistic-style-microchip-processor-background_52683-58932.jpg?w=996&t=st=1690639666~exp=1690640266~hmac=f089a2268c655ac9fe19c0074999d5daaf2783af9652843c55e392448b8090ab" alt="Motherboard" /></figure>
+              <div className="card-body justify-center items-center text-center">
+                <h2 className="card-title text-3xl">Motherboard</h2>
+              </div>
+            </div>
+          </Link>
+          <Link href="/ram">
+            <div className="card w-80 h-60 bg-base-100 shadow-xl image-full">
+              <figure><img src="https://img.freepik.com/free-photo/technician-repairing-circuit-board-with-multimeter-tool-generated-by-ai_188544-37249.jpg?t=st=1690628908~exp=1690632508~hmac=2d84af0ea201644cf2d8f8f0acefe7787cadb953f081622abf5a5bd0689c979e&w=1060" alt="RAM" /></figure>
+              <div className="card-body justify-center items-center text-center">
+                <h2 className="card-title text-3xl">RAM</h2>
+              </div>
+            </div>
+          </Link>
+          <Link href="/powerSupplyUnit">
+            <div className="card w-80 h-60 bg-base-100 shadow-xl image-full">
+              <figure><img src="https://img.freepik.com/premium-photo/fiber-optic-cable-internet-connection-generative-ai_722401-466.jpg?w=996" alt="Power Supply Unit" /></figure>
+              <div className="card-body justify-center items-center text-center">
+                <h2 className="card-title text-3xl">Power Supply Unit</h2>
+              </div>
+            </div>
+          </Link>
+          <Link href="/storageDevice">
+            <div className="card w-80 h-60 bg-base-100 shadow-xl image-full">
+              <figure><img src="https://img.freepik.com/free-photo/mainframe-devices-racks-room-with-big-data-cyber-internet-content-neon-light-cloud-computing-server-cabinet-modern-communication-storage-hardware-system_90220-1386.jpg?t=st=1690629025~exp=1690632625~hmac=75e24a2ca496bfab9ec58ac0e2247131a12b905601ed46238acf4427fce2da6f&w=996" alt="Storage Device" /></figure>
+              <div className="card-body justify-center items-center text-center">
+                <h2 className="card-title text-3xl">Storage Device</h2>
+              </div>
+            </div>
+          </Link>
+          <Link href="/monitor">
+            <div className="card w-80 h-60 bg-base-100 shadow-xl image-full">
+              <figure><img src="https://img.freepik.com/free-photo/modern-office-equipment-blue-desk-generated-by-ai_188544-27062.jpg?t=st=1690629071~exp=1690632671~hmac=03595351af367b37aff5b71c89013dd46f590d671db87d3f5ec6764beacd9c7e&w=1060" alt="Monitor" /></figure>
+              <div className="card-body justify-center items-center text-center">
+                <h2 className="card-title text-3xl">Monitor</h2>
+              </div>
+            </div>
+          </Link>
+          <Link href="/others">
+            <div className="card w-80 h-60 bg-base-100 shadow-xl image-full">
+              <figure><img src="https://img.freepik.com/free-photo/steel-machinery-illuminates-workshop-indoors-with-creativity-generated-by-ai_188544-29933.jpg?t=st=1690629116~exp=1690632716~hmac=a32e97d6cf9e3e4388f27b43e4cbf90759f21c1186a53ffeffdc6e96e68bf0c5&w=1060" alt="others" /></figure>
+              <div className="card-body justify-center items-center text-center">
+                <h2 className="card-title text-3xl">Others</h2>
+              </div>
+            </div>
+          </Link>
+        </div>
       </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Discover and deploy boilerplate example Next.js&nbsp;projects.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    </>
   )
+}
+
+export async function getStaticProps() {
+  try {
+    const response = await fetch('http://localhost:3000/api/data');
+    const data = await response.json();
+
+    return {
+      props: {
+        data: data.data
+      },
+    };
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    return {
+      props: {
+        data: null,
+      },
+    };
+  }
 }
