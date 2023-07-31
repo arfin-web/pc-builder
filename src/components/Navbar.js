@@ -1,6 +1,9 @@
 import Link from "next/link"
+import { useSession, signIn, signOut } from "next-auth/react"
 
 const Navbar = () => {
+    const { data: session } = useSession()
+    console.log(session?.user);
     return (
         <>
             <div className="navbar bg-base-100">
@@ -42,26 +45,30 @@ const Navbar = () => {
                                 </ul>
                             </details>
                         </li>
-                        <li>
-                            <Link href="/pcbuilder" className="btn btn-primary text-lg">Pc Builder</Link>
-                        </li>
+                        {
+                            session?.user && <li>
+                                <Link href="/pcbuilder" className="btn btn-primary text-lg">Pc Builder</Link>
+                            </li>
+                        }
                     </ul>
                     <div className="dropdown dropdown-end">
                         <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                             <div className="w-10 rounded-full">
-                                <img src="https://img.freepik.com/free-photo/close-up-young-offended-attractive-boy-blank-t-shirt-stands-pink-background-looks-sad-unhappy_295783-3317.jpg?w=996&t=st=1690547158~exp=1690547758~hmac=d8f5582165f9b25e0f78d6f84d19af8c2958f66e6ba163cb29ec3b6d751f8d96" />
+                                <img src={session?.user?.image} />
                             </div>
                         </label>
-                        <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
-                            <li>
-                                <a className="justify-between">
-                                    Profile
-                                    <span className="badge">New</span>
-                                </a>
-                            </li>
-                            <li><a>Settings</a></li>
-                            <li><a>Logout</a></li>
-                        </ul>
+                        {
+                            session?.user ? <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
+                                <li>
+                                    <a className="justify-between">
+                                        {session?.user?.name}
+                                    </a>
+                                </li>
+                                <li><a>{session?.user?.email}</a></li>
+                                <li><button onClick={() => signOut()} className="btn btn-sm btn-ghost">Logout</button></li>
+                            </ul>
+                                : <button onClick={() => signIn("github", { callbackUrl: "https://pc-builder-delta.vercel.app", })} className="btn btn-primary text-lg">Sign In</button>
+                        }
                     </div>
                 </div>
             </div>
