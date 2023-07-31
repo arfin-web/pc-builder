@@ -74,24 +74,13 @@ export async function getStaticPaths() {
     }
 }
 
-
 export async function getStaticProps({ params }) {
-    try {
-        const { productid } = params;
-        const response = await fetch(`http://localhost:3000/api/data/${productid}`);
-        const data = await response.json();
-
-        return {
-            props: {
-                product: data.data,
-            },
-        };
-    } catch (error) {
-        console.error('Error fetching product data:', error);
-        return {
-            props: {
-                product: null,
-            },
-        };
-    }
+    const { productid } = params;
+    const response = await fetch(`http://localhost:3000/api/data/${productid}`);
+    const data = await response.json();
+    return {
+        props: {
+            product: data.data,
+        },
+    };
 }

@@ -1,3 +1,5 @@
+import Link from "next/link"
+
 const Banner = () => {
     return (
         <>
@@ -5,9 +7,9 @@ const Banner = () => {
                 <div className="hero-overlay bg-opacity-60"></div>
                 <div className="hero-content text-center text-neutral-content">
                     <div className="max-w-md">
-                        <h1 className="mb-5 text-5xl font-bold">Hello there</h1>
-                        <p className="mb-5">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
-                        <button className="btn btn-primary">Get Started</button>
+                        <h1 className="mb-5 text-5xl font-bold">Personalized PC Creator</h1>
+                        <p className="mb-5">Discover and customize your perfect PC setup with our user-friendly PC Builder app. Choose from a wide range of high-performance components and create a computer that suits your needs and preferences. Build your dream PC today!</p>
+                        <Link href="/pcbuilder" className="btn btn-primary">Start Building</Link>
                     </div>
                 </div>
             </div>
