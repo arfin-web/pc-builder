@@ -59,7 +59,7 @@ export async function getStaticPaths() {
         const response = await fetch('http://localhost:3000/api/data');
         const data = await response.json();
 
-        const paths = data.map((product) => ({ params: { productid: product._id } }));
+        const paths = data.map((product) => ({ params: { productid: product?._id } }));
 
         return {
             paths,
@@ -80,7 +80,7 @@ export async function getStaticProps({ params }) {
     const data = await response.json();
     return {
         props: {
-            product: data.data,
+            product: data?.data,
         },
     };
 }
