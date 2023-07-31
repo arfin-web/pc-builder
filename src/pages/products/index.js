@@ -26,13 +26,13 @@ export default products
 
 export async function getStaticProps() {
     try {
-        if (typeof window === 'undefined') {
-            return {
-                props: {
-                    data: [],
-                },
-            };
-        }
+        // if (typeof window === 'undefined') {
+        //     return {
+        //         props: {
+        //             data: [],
+        //         },
+        //     };
+        // }
         const apiUrl = `${publicRuntimeConfig.apiUrl}/api/data`;
         const response = await fetch(apiUrl);
         const data = await response.json();
