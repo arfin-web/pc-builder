@@ -59,7 +59,12 @@ export async function getStaticPaths() {
         const response = await fetch('http://localhost:3000/api/data');
         const data = await response.json();
 
-        const paths = data.map((product) => ({ params: { productid: product?._id } }));
+        const paths = data.map((product) => {
+            if (product && product._id) {
+                return { params: { productid: product._id } };
+            }
+            return null;
+        }).filter((path) => path !== null);
 
         return {
             paths,
