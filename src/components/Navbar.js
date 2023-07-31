@@ -42,6 +42,9 @@ const Navbar = () => {
                                 </ul>
                             </details>
                         </li>
+                        <li>
+                            <Link href="/pcbuilder" className="btn btn-primary text-lg">Pc Builder</Link>
+                        </li>
                     </ul>
                     <div className="dropdown dropdown-end">
                         <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
