@@ -1,4 +1,7 @@
 import ComponentCard from "@/components/ComponentCard"
+import getConfig from "next/config";
+
+const { publicRuntimeConfig } = getConfig();
 
 const motherboard = ({ data }) => {
     const Motherboard = data.filter(product => product.category === "Motherboard")
@@ -24,19 +27,20 @@ export default motherboard
 
 export async function getServerSideProps() {
     try {
-        const response = await fetch("http://localhost:3000/api/data");
+        const apiUrl = `${publicRuntimeConfig.apiUrl}/api/data`;
+        const response = await fetch(apiUrl);
         const data = await response.json();
 
         return {
             props: {
-                data: data.data,
+                data: data?.data || [],
             },
         };
     } catch (error) {
         console.error("Error fetching data:", error);
         return {
             props: {
-                data: null,
+                data: [],
             },
         };
     }

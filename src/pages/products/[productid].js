@@ -1,4 +1,7 @@
 import { useRouter } from 'next/router';
+import getConfig from "next/config";
+
+const { publicRuntimeConfig } = getConfig();
 
 const ProductDetails = ({ product }) => {
     const router = useRouter();
@@ -14,7 +17,7 @@ const ProductDetails = ({ product }) => {
     return (
         <div className="container mx-auto p-4 my-8">
             <h1 className="text-center text-secondary text-3xl font-bold mb-8">Product Details</h1>
-            <div className="card lg:card-side bg-base-100 shadow-xl">
+            <div className="card lg:card-side bg-base-100 shadow-xl" key={product._id}>
                 <figure><img src={product.image} alt={product.productName} /></figure>
                 <div className="card-body">
                     <h2 className="card-title">Product Name: {product.productName}</h2>
@@ -31,10 +34,10 @@ const ProductDetails = ({ product }) => {
             <hr className='mb-5' />
             <div className='grid grid-cols-1 lg:grid-cols-3 gap-5 place-items-center'>
                 {
-                    product.reviews.map(review => {
+                    product.reviews.map((review, index) => {
                         return (
                             <>
-                                <div className="card w-96 bg-base-100 shadow-xl">
+                                <div className="card w-96 bg-base-100 shadow-xl" key={index}>
                                     <div className="card-body">
                                         <h2 className="card-title">{review.username}</h2>
                                         <blockquote>"{review.comment}"</blockquote>
@@ -56,7 +59,7 @@ export default ProductDetails;
 
 export async function getStaticPaths() {
     try {
-        const response = await fetch('http://localhost:3000/api/data');
+        const response = await fetch(`${publicRuntimeConfig.apiUrl}/api/data`);
         const data = await response.json();
 
         const paths = data.map((product) => {
@@ -80,12 +83,21 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-    const { productid } = params;
-    const response = await fetch(`http://localhost:3000/api/data/${productid}`);
-    const data = await response.json();
-    return {
-        props: {
-            product: data?.data,
-        },
-    };
+    try {
+        const { productid } = params;
+        const response = await fetch(`${publicRuntimeConfig.apiUrl}/api/data/${productid}`);
+        const data = await response.json();
+        return {
+            props: {
+                data: data?.data || [],
+            },
+        };
+    } catch (error) {
+        console.error("Error fetching data:", error);
+        return {
+            props: {
+                data: [],
+            },
+        };
+    }
 }

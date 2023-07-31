@@ -1,4 +1,7 @@
 import ProductCard from "@/components/ProductCard";
+import getConfig from "next/config";
+
+const { publicRuntimeConfig } = getConfig();
 
 const Monitor = ({ data }) => {
     const Monitor = data.filter(product => product.category === "Monitor")
@@ -23,11 +26,22 @@ const Monitor = ({ data }) => {
 export default Monitor
 
 export async function getStaticProps() {
-    const response = await fetch('http://localhost:3000/api/data');
-    const data = await response.json();
-    return {
-        props: {
-            data: data?.data
-        },
-    };
+    try {
+        const apiUrl = `${publicRuntimeConfig.apiUrl}/api/data`;
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+
+        return {
+            props: {
+                data: data?.data || [],
+            },
+        };
+    } catch (error) {
+        console.error("Error fetching data:", error);
+        return {
+            props: {
+                data: [],
+            },
+        };
+    }
 }

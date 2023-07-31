@@ -2,5 +2,9 @@
 const nextConfig = {
   reactStrictMode: true,
 }
-
+module.exports = {
+  publicRuntimeConfig: {
+    apiUrl: process.env.API_URL || "http://localhost:3000",
+  },
+};
 module.exports = nextConfig
